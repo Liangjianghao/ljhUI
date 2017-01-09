@@ -1,0 +1,163 @@
+{
+    "total": 6,
+    "rows": [
+             {
+             "ID": 1,
+             "ControlName": "UserName",
+             "ControlLabel": "用户名",
+             "ControlValue": "",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220593000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null,
+             "ControlType": {
+             "ID": 1,
+             "Name": "文本框",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452219344000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             },
+             "DataType": {
+             "ID": 5,
+             "Name": "String",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220579000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             }
+             },
+             {
+             "ID": 2,
+             "ControlName": "Password",
+             "ControlLabel": "密码",
+             "ControlValue": "",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220603000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null,
+             "ControlType": {
+             "ID": 1,
+             "Name": "文本框",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452219344000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             },
+             "DataType": {
+             "ID": 5,
+             "Name": "String",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220579000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             }
+             },
+             {
+             "ID": 3,
+             "ControlName": "Gender",
+             "ControlLabel": "性别",
+             "ControlValue": "男，女",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220622000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null,
+             "ControlType": {
+             "ID": 2,
+             "Name": "单选框",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452219447000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             },
+             "DataType": {
+             "ID": 5,
+             "Name": "String",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220579000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             }
+             },
+             {
+             "ID": 18,
+             "ControlName": "Hobby",
+             "ControlLabel": "兴趣爱好811",
+             "ControlValue": "篮18球，足18球，唱18歌，跳舞，其他",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452221298000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null,
+             "ControlType": {
+             "ID": 3,
+             "Name": "多选框",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452219458000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             },
+             "DataType": {
+             "ID": 5,
+             "Name": "String",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220579000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             }
+             },
+
+             {
+             "ID": 5,
+             "ControlName": "Photo",
+             "ControlLabel": "照片",
+             "ControlValue": "",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452221218000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null,
+             "ControlType": {
+             "ID": 5,
+             "Name": "照片选择",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452221174000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             },
+             "DataType": {
+             "ID": 6,
+             "Name": "Base64",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452221196000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             }
+             },
+             {
+             "ID": 18,
+             "ControlName": "Hobby",
+             "ControlLabel": "兴趣爱好811",
+             "ControlValue": "篮18球，足18球，唱18歌，跳舞，其他",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452221298000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null,
+             "ControlType": {
+             "ID": 3,
+             "Name": "照片选择",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452219458000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             },
+             "DataType": {
+             "ID": 5,
+             "Name": "String",
+             "CreateUserId": null,
+             "CreateDate": "/Date(1452220579000+0800)/",
+             "UpdateUserId": null,
+             "UpdateDate": null
+             }
+             }
+             ]
+    
+}

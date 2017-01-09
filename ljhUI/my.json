@@ -1,0 +1,139 @@
+{
+    "ErrorCode": 0,
+    "ErrorMsg": null,
+    "Data": [
+             {
+             "ID": 11,
+             "Name": "百事CNY",
+             "Logo": "/Upload/20170104/636191243291188279.jpg",
+             "Tables": [
+                        {
+                        "ID": 6,
+                        "Name": "测试表单1",
+                        "Rows": [
+                                 {
+                                 "ID": 8,
+                                 "Name": "可乐",
+                                 "Contorls": [
+                                              {
+                                              "ID": 15,
+                                              "Name": "销量",
+                                              "ControlType": "Input",
+                                              "DefaultValue": "",
+                                              "MinValue": null,
+                                              "MaxValue": null,
+                                              "DataType": "整数",
+                                              "Required": "是"
+                                              },
+                                              {
+                                              "ID": 16,
+                                              "Name": "单价",
+                                              "ControlType": "Input",
+                                              "DefaultValue": "",
+                                              "MinValue": null,
+                                              "MaxValue": null,
+                                              "DataType": "整数",
+                                              "Required": "是"
+                                              },
+                                              {
+                                              "ID": 17,
+                                              "Name": "陈列拍照",
+                                              "ControlType": "Camara",
+                                              "DefaultValue": "",
+                                              "MinValue": null,
+                                              "MaxValue": null,
+                                              "DataType": "文本",
+                                              "Required": "否"
+                                              }
+                                              ]
+                                 },
+                                 {
+                                 "ID": 9,
+                                 "Name": "薯片",
+                                 "Contorls": [
+                                              {
+                                              "ID": 18,
+                                              "Name": "薯片",
+                                              "ControlType": "Input",
+                                              "DefaultValue": null,
+                                              "MinValue": null,
+                                              "MaxValue": null,
+                                              "DataType": "文本",
+                                              "Required": "否"
+                                              },
+                                              {
+                                              "ID": 19,
+                                              "Name": "断缺货",
+                                              "ControlType": "Select",
+                                              "Options": [
+                                                          {
+                                                          "Value": "是",
+                                                          "Text": "是"
+                                                          },
+                                                          {
+                                                          "Value": "否",
+                                                          "Text": "否"
+                                                          }
+                                                          ],
+                                              "DefaultValue": "",
+                                              "MinValue": null,
+                                              "MaxValue": null,
+                                              "DataType": "文本",
+                                              "Required": "否"
+                                              }
+                                              ]
+                                 }
+                                 ]
+                        },
+                        {
+                        "ID": 7,
+                        "Name": "测试表单2",
+                        "Rows": [
+                                 {
+                                 "ID": 10,
+                                 "Name": "可乐",
+                                 "Contorls": [
+                                              {
+                                              "ID": 20,
+                                              "Name": "陈列位置",
+                                              "ControlType": "CheckBox",
+                                              "DefaultValue": "",
+                                              "MinValue": null,
+                                              "MaxValue": null,
+                                              "DataType": "文本",
+                                              "Required": "是"
+                                              },
+                                              {
+                                              "ID": 21,
+                                              "Name": "陈列照",
+                                              "ControlType": "Camara",
+                                              "DefaultValue": "",
+                                              "MinValue": null,
+                                              "MaxValue": null,
+                                              "DataType": "文本",
+                                              "Required": "否"
+                                              }
+                                              ]
+                                 },
+                                 {
+                                 "ID": 11,
+                                 "Name": "薯片",
+                                 "Contorls": [
+                                              {
+                                              "ID": 22,
+                                              "Name": "单价",
+                                              "ControlType": "Input",
+                                              "DefaultValue": "0",
+                                              "MinValue": 0,
+                                              "MaxValue": 35,
+                                              "DataType": "小数",
+                                              "Required": "是"
+                                              }
+                                              ]
+                                 }
+                                 ]
+                        }
+                        ]
+             }
+             ]
+}
