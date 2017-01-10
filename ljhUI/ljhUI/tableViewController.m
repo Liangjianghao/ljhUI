@@ -6,32 +6,85 @@
 //  Copyright © 2017年 mac. All rights reserved.
 //
 
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+#define WIDTH [UIScreen mainScreen].bounds.size.width
 #import "tableViewController.h"
+#import "ViewController.h"
 
 @interface tableViewController ()
-
+{
+    NSMutableArray *dataArr;
+}
 @end
 
 @implementation tableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    dataArr=[[NSMutableArray alloc]init];
+    
+    [self loadData];
+    
+    UITableView *myTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT) style:UITableViewStylePlain];
+    myTableView.delegate=self;
+    myTableView.dataSource=self;
+    [self.view addSubview:myTableView];
+    
+    
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void)loadData
+{
+    NSString *path;
+    path = [[NSBundle mainBundle] pathForResource:@"my" ofType:@"json"];
+    NSData *fileData = [[NSData alloc]init];
+    fileData = [NSData dataWithContentsOfFile:path];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithCapacity:0];
+    dic = [NSJSONSerialization JSONObjectWithData:fileData options:NSJSONReadingMutableLeaves error:nil];
+    
+   NSArray * basedataArr=[dic objectForKey:@"Data"];
+    NSLog(@"%lu",(unsigned long)basedataArr.count);
+    
+    NSLog(@"%@",[basedataArr[0] objectForKey:@"Name"]);
+    NSArray *tableArr=[basedataArr[0] objectForKey:@"Tables"];
+    dataArr=tableArr;
+    NSArray*  rowArr=[tableArr[0] objectForKey:@"Rows"];
+
+
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark--tableview delegate
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return  dataArr.count;
 }
-*/
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellID=@"cellID";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellID];
+    if (!cell) {
+        //        cell=[[[NSBundle mainBundle]loadNibNamed:@"BottleCell" owner:self options:nil]firstObject];
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    }
+    //    [cell setModel:dataArr[indexPath.row]];
+    cell.textLabel.text=[dataArr[indexPath.row] objectForKey:@"Name"];
+    cell.textLabel.textAlignment=NSTextAlignmentCenter;
+    return cell;
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ViewController *uiViewController =[[ViewController alloc]init];
+    uiViewController.rowArr=[dataArr[indexPath.row] objectForKey:@"Rows"];
+    uiViewController.ID=[dataArr[indexPath.row] objectForKey:@"ID"];
+    [self.navigationController pushViewController:uiViewController animated:YES];
+}
 
 @end

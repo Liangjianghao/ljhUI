@@ -11,6 +11,8 @@
 @interface ViewController : UIViewController
 
 @property (strong,nonatomic)ProductModel *model;
+@property (strong,nonatomic)NSArray *rowArr;
+@property (strong,nonatomic)NSString *ID;
 
 @end
 

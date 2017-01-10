@@ -30,6 +30,9 @@
 		04343D991E1E1C4B007D372E /* ljhCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 04343D981E1E1C4B007D372E /* ljhCheckbox.m */; };
 		04343D9C1E1E224D007D372E /* ljhSingleChooseBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 04343D9B1E1E224D007D372E /* ljhSingleChooseBtn.m */; };
 		04343D9E1E1E24CA007D372E /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 04343D9D1E1E24CA007D372E /* photo.png */; };
+		043A51911E23732600E1A6FA /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043A518F1E23732600E1A6FA /* BaseViewController.m */; };
+		043A51921E23732600E1A6FA /* BaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043A51901E23732600E1A6FA /* BaseViewController.xib */; };
+		043A51951E2374D800E1A6FA /* tableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043A51941E2374D800E1A6FA /* tableViewController.m */; };
 		04668D651E233840001BAEEF /* my.json in Resources */ = {isa = PBXBuildFile; fileRef = 04668D641E233840001BAEEF /* my.json */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +98,11 @@
 		04343D9A1E1E224D007D372E /* ljhSingleChooseBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ljhSingleChooseBtn.h; sourceTree = "<group>"; };
 		04343D9B1E1E224D007D372E /* ljhSingleChooseBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ljhSingleChooseBtn.m; sourceTree = "<group>"; };
 		04343D9D1E1E24CA007D372E /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
+		043A518E1E23732600E1A6FA /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		043A518F1E23732600E1A6FA /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		043A51901E23732600E1A6FA /* BaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseViewController.xib; sourceTree = "<group>"; };
+		043A51931E2374D800E1A6FA /* tableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tableViewController.h; sourceTree = "<group>"; };
+		043A51941E2374D800E1A6FA /* tableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tableViewController.m; sourceTree = "<group>"; };
 		04668D641E233840001BAEEF /* my.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = my.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +183,11 @@
 				04343D4D1E1E1246007D372E /* LaunchScreen.storyboard */,
 				04343D501E1E1246007D372E /* Info.plist */,
 				04343D3F1E1E1246007D372E /* Supporting Files */,
+				043A518E1E23732600E1A6FA /* BaseViewController.h */,
+				043A518F1E23732600E1A6FA /* BaseViewController.m */,
+				043A51901E23732600E1A6FA /* BaseViewController.xib */,
+				043A51931E2374D800E1A6FA /* tableViewController.h */,
+				043A51941E2374D800E1A6FA /* tableViewController.m */,
 			);
 			path = ljhUI;
 			sourceTree = "<group>";
@@ -345,6 +358,7 @@
 				04343D9E1E1E24CA007D372E /* photo.png in Resources */,
 				04668D651E233840001BAEEF /* my.json in Resources */,
 				04343D4C1E1E1246007D372E /* Assets.xcassets in Resources */,
+				043A51921E23732600E1A6FA /* BaseViewController.xib in Resources */,
 				04343D4A1E1E1246007D372E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043A51951E2374D800E1A6FA /* tableViewController.m in Sources */,
 				04343D781E1E1594007D372E /* FMModel.m in Sources */,
 				04343D991E1E1C4B007D372E /* ljhCheckbox.m in Sources */,
 				04343D471E1E1246007D372E /* ViewController.m in Sources */,
@@ -379,6 +394,7 @@
 				04343D871E1E15A0007D372E /* FMDatabasePool.m in Sources */,
 				04343D881E1E15A0007D372E /* FMDatabaseQueue.m in Sources */,
 				04343D7A1E1E1594007D372E /* DBManager.m in Sources */,
+				043A51911E23732600E1A6FA /* BaseViewController.m in Sources */,
 				04343D791E1E1594007D372E /* DMManager.m in Sources */,
 				04343D941E1E167C007D372E /* ProductModel.m in Sources */,
 				04343D9C1E1E224D007D372E /* ljhSingleChooseBtn.m in Sources */,

@@ -40,7 +40,7 @@
     
     UIImagePickerController * imagePicker;
 
-    NSArray *rowArr;
+//    NSArray *rowArr;
 }
 @end
 
@@ -56,6 +56,7 @@
     [self.view addGestureRecognizer:tap];
     [self loadData];
     [self uiConfig];
+    self.view.backgroundColor=[UIColor whiteColor];
 }
 -(void)keyBoardDismiss:(UITapGestureRecognizer *)tap
 {
@@ -77,7 +78,7 @@
     NSLog(@"%@",[dataArr[0] objectForKey:@"Name"]);
     NSArray *tableArr=[dataArr[0] objectForKey:@"Tables"];
     
-    rowArr=[tableArr[0] objectForKey:@"Rows"];
+//    _rowArr=[tableArr[0] objectForKey:@"Rows"];
     
 //    count=dataArr.count;
     
@@ -101,15 +102,15 @@
 //    UITapGestureRecognizer *dimissTap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(keyBoardDismiss:)];
 //    [scrollV addGestureRecognizer:dimissTap];
     
-    for (int j=0; j<rowArr.count; j++) {
+    for (int j=0; j<_rowArr.count; j++) {
         UILabel *label=[[UILabel alloc]init];
-        label.frame=CGRectMake(10, viewheight, WIDTH, CONTROLHEIGHT);
-        label.text=[NSString stringWithFormat:@"%@",[rowArr[j] objectForKey:@"Name"]];
+        label.frame=CGRectMake(0, viewheight, WIDTH, 40);
+        label.text=[NSString stringWithFormat:@"%@",[_rowArr[j] objectForKey:@"Name"]];
         label.textAlignment=NSTextAlignmentCenter;
         label.backgroundColor=[UIColor grayColor];
         [scrollV addSubview:label];
         viewheight+=60;
-        NSArray *lineArr=[rowArr[j] objectForKey:@"Contorls"];
+        NSArray *lineArr=[_rowArr[j] objectForKey:@"Contorls"];
         
         for (int i=0; i<lineArr.count; i++) {
             
@@ -126,11 +127,12 @@
             if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Input"]) {
                 
                 UITextField *textField=[[UITextField alloc]init];
-                textField.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
+                textField.frame=CGRectMake(160, viewheight, WIDTH/2-10, 40);
                 textField.placeholder=[NSString stringWithFormat:@"%@",[lineArr[i] objectForKey:@"Name"]];
                 textField.delegate=self;
                 //                textField.tag=101+i;
                 textField.tag=[[lineArr[i] objectForKey:@"ID"] intValue];
+                textField.borderStyle=UITextBorderStyleRoundedRect;
                 [scrollV addSubview:textField];
                 viewheight+=60;
                 
@@ -158,28 +160,33 @@
                 
                 
             }
-            /*
-            else if([[[rowArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"多选框"]) {
+            
+            else if([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"CheckBox"]) {
                 
                 ljhCheckbox *btn=[[ljhCheckbox alloc]init];
-                NSString *Str=[baseDetailTest objectForKey:[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ID"]]];
-                NSLog(@"%@",[NSString stringWithFormat:@"%@",[rowArr[i] objectForKey:@"ID"]]);
+//                NSString *Str=[baseDetailTest objectForKey:[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ID"]]];
+//                NSLog(@"%@",[NSString stringWithFormat:@"%@",[rowArr[i] objectForKey:@"ID"]]);
+//                
+//                NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:[self dicToArray:Str]];
                 
-                NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:[self dicToArray:Str]];
+                NSArray *myarr=@[@"位置一",@"位置二"];
+
+                
                 [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 
-                [btn mybuttonwithArr:arr andTitle:@"多选" andMessage:@"测试"];
+                [btn mybuttonwithArr:myarr andTitle:@"多选" andMessage:@"测试"];
                 [btn setFinishBlock:^(NSString *result) {
                     
                 }];
                 btn.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
                 [btn setTitle:@"多选" forState:UIControlStateNormal];
-                btn.tag=[[rowArr[i] objectForKey:@"ID"] intValue];
+                btn.tag=[[lineArr[i] objectForKey:@"ID"] intValue];
                 [scrollV addSubview:btn];
-                viewheight+=80;
+                viewheight+=60;
                 
                 
             }
+             /*
             else if([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"日期选择框"]) {
                 UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
                 btn.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
@@ -195,19 +202,19 @@
                 
             }
              */
-            else if([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Select"]) {
+            else if([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Camara"]) {
                 
                 
                 UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-                btn.frame=CGRectMake(110,viewheight, CONTROLHEIGHT, CONTROLHEIGHT);
+                btn.frame=CGRectMake(WIDTH/2+10,viewheight, 40, 40);
                 //                [btn setTitle:@"照片选择" forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
                 [btn addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
-                //            [btn setBackgroundImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-                [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                            [btn setBackgroundImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
+//                [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
                 //            [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
                 
-                btn.backgroundColor=[UIColor blackColor];
+//                btn.backgroundColor=[UIColor blackColor];
                 
                 btn.tag=101+i;
                 takePhotoTag=btn.tag;
@@ -215,7 +222,7 @@
                 
                 [self baseConfigWithTag:btn.tag];
                 
-                viewheight+=60;
+                viewheight+=160;
                 
             }
             else
@@ -364,15 +371,15 @@
     [scrollV addSubview:savebtn];
     
     scrollV.contentSize=CGSizeMake(WIDTH, viewheight+50);
-    ProductModel *oneModel=[KeepSignInInfo selectOneProductDetailTable:@"23" andProCode:_model.ProductId];
+    ProductModel *oneModel=[KeepSignInInfo selectOneProductDetailTable:_ID andProCode:_model.ProductId];
     count3=0;
     
-    for (int j=0; j<rowArr.count; j++) {
-        NSArray *lineArr=[rowArr[j] objectForKey:@"Contorls"];
+    for (int j=0; j<_rowArr.count; j++) {
+        NSArray *lineArr=[_rowArr[j] objectForKey:@"Contorls"];
         for (int i=0; i<lineArr.count; i++) {
             count3++;
             
-            if ([oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i]]) {
+            if ([oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i+1]]) {
             
             if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Input"]) {
                 UITextField *tf=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
@@ -387,12 +394,13 @@
                 [btn setTitle:[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",count3]] forState:UIControlStateNormal];
 
             }
-            //        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"多选框"])
-            //        {
-            //            UIButton *btn=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-            //
-            //            [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",i+1]];
-            //        }
+                
+            else if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"CheckBox"])
+                    {
+                        UIButton *btn=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
+            
+                        [btn setTitle:[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",count3]] forState:UIControlStateNormal];
+                    }
             //        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"照片选择"])
             //        {
             //            
@@ -447,10 +455,10 @@
     if (!_model) {
         _model=[[ProductModel alloc]init];
     }
-    _model.Code=@"23";
+    _model.Code=_ID;
     
-    for (int j=0; j<rowArr.count; j++) {
-        NSArray *lineArr=[rowArr[j] objectForKey:@"Contorls"];
+    for (int j=0; j<_rowArr.count; j++) {
+        NSArray *lineArr=[_rowArr[j] objectForKey:@"Contorls"];
         for (int i=0; i<lineArr.count; i++) {
             count2++;
         
@@ -465,12 +473,13 @@
             
             [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",count2]];
         }
-//        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"多选框"])
-//        {
-//            UIButton *btn=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-//            
-//            [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",i+1]];
-//        }
+            
+        else if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"CheckBox"])
+        {
+            UIButton *btn=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
+            
+            [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",count2]];
+        }
 //        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"照片选择"])
 //        {
 //            
@@ -546,9 +555,9 @@
     //    [mysmallScr removeFromSuperview];
     
     UIScrollView  *newsmallScr=[[UIScrollView alloc]init];
-    newsmallScr.frame=CGRectMake(90, height==0?viewheight+60:height, WIDTH-115, 90);
+    newsmallScr.frame=CGRectMake(5, height==0?viewheight+60:height, WIDTH, 90);
     
-    photoArr=[KeepSignInInfo selectPhotoWithType:[NSString stringWithFormat:@"%d",takePhotoTag] andId:@"23"];
+    photoArr=[KeepSignInInfo selectPhotoWithType:[NSString stringWithFormat:@"%d",takePhotoTag] andId:_ID];
     
     newsmallScr.tag=tag+100;
     // smallScr.backgroundColor=[UIColor grayColor];
@@ -660,7 +669,7 @@
         _keepInfo=[[NSMutableDictionary alloc]init];
         [_keepInfo setValue:[NSString stringWithFormat:@"%d",takePhotoTag] forKey:@"selectType"];
         
-        [_keepInfo setValue:@"23"   forKey:@"storeCode"];
+        [_keepInfo setValue:_ID   forKey:@"storeCode"];
         [_keepInfo setValue:userID      forKey:@"userID"];
         [_keepInfo setValue:identifier  forKey:@"identifier"];
         [_keepInfo setValue:imageType   forKey:@"imageType"];
@@ -721,7 +730,7 @@
 -(void)toDetail:(UITapGestureRecognizer *)tap
 {
 
-    bigPictures=[KeepSignInInfo selectPhotoWithType:[NSString stringWithFormat:@"%ld",tap.view.superview.tag-100] andId:@"23"];
+    bigPictures=[KeepSignInInfo selectPhotoWithType:[NSString stringWithFormat:@"%ld",tap.view.superview.tag-100] andId:_ID];
     self.tabBarController.tabBar.hidden = YES;
     otherScrollVC=[[UIScrollView alloc]init];
     otherScrollVC.frame=CGRectMake(0, 104, WIDTH, WIDTH*1.3);
@@ -758,9 +767,9 @@
     [mysmallScr removeFromSuperview];
     
     UIScrollView  *newsmallScr=[[UIScrollView alloc]init];
-    newsmallScr.frame=CGRectMake(90, height==0?viewheight+60:height, WIDTH-50, 90);
+    newsmallScr.frame=CGRectMake(5, height==0?viewheight+60:height, WIDTH-50, 90);
     
-    photoArr=[KeepSignInInfo selectPhotoWithType:[NSString stringWithFormat:@"%d",takePhotoTag] andId:@"23"];
+    photoArr=[KeepSignInInfo selectPhotoWithType:[NSString stringWithFormat:@"%d",takePhotoTag] andId:_ID];
     
     newsmallScr.tag=tag+100;
     // smallScr.backgroundColor=[UIColor grayColor];

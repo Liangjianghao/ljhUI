@@ -18,12 +18,31 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="iEk-fJ-B2C"/>
+                        <segue destination="6Go-Fg-aWr" kind="relationship" relationship="rootViewController" id="v7D-uB-CKF"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ut5-lW-Zeo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-674" y="63"/>
+        </scene>
+        <!--Base View Controller-->
+        <scene sceneID="S3u-UX-mZw">
+            <objects>
+                <viewController id="6Go-Fg-aWr" customClass="BaseViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RKA-0l-gVE"/>
+                        <viewControllerLayoutGuide type="bottom" id="fkf-jx-zgN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3kW-uj-qjR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Nxg-9N-DiV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2yd-ro-P3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="415" y="-60"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -42,7 +61,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="417" y="72"/>
+            <point key="canvasLocation" x="1404" y="-31"/>
         </scene>
     </scenes>
 </document>
