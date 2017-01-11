@@ -33,6 +33,59 @@
     }
     [db close];
 }
++ (void)creatMyInfo
+{
+    FMDatabase * db = [self getDB];
+    if ([db open])
+    {
+        if (![db tableExists:@"myinfo"])
+        {
+            
+            NSString *newCheckTable = [NSString stringWithFormat:@"CREATE TABLE myinfo (userID text,storeCode text,identifier text,ProjectId text,ControlID text,ControlValue text,ControlType text,CreateDate text)"];
+            BOOL res = [db executeUpdate:newCheckTable];
+            if (!res) {
+                NSLog(@"|**=== 1error when creating db table ===**|  %d",res);
+            } else {
+                NSLog(@"|**=== success to creating db table ===**|  %d",res);
+            }
+            
+        }
+    }
+    [db close];
+}
++ (void)keepStoreWithdata:(NSArray *)arr andModel:(ProductModel *)model
+{
+    [self creatMyInfo];
+
+    NSString *userID        =model.Code;
+    NSString *ProjectId     =model.ProjectId;
+    NSString *StoreId     =model.StoreId;
+    NSString *identifier    =model.Area;
+
+    
+    FMDatabaseQueue * queue = [FMDatabaseQueue databaseQueueWithPath:[self getPath]];
+    [queue inDatabase:^(FMDatabase *db) {
+        
+        if ([db open]) {
+            
+            
+            for (int i=0; i<arr.count; i++) {
+                NSString * insertPhotoStr = [NSString stringWithFormat:@"insert into myinfo(userID,storeCode,identifier,ProjectId,ControlID,ControlValue,ControlType,CreateDate) values('%@','%@','%@','%@','%@','%@','%@','%@')",userID,StoreId,identifier,ProjectId,arr[i][1],arr[i][0],arr[i][2],@"1233"];
+                
+//                [db executeUpdate:insertPhotoStr];
+            
+            BOOL res = [db executeUpdate:insertPhotoStr];
+            //            [db executeUpdate:insertString];
+            if (!res) {
+                NSLog(@"|**=== error when creating db table ===**|   %d",res);
+            } else {
+                NSLog(@"|**=== success to creating db table ===**|   %d",res);
+            }
+            }
+     
+        }
+    }];
+}
 + (void)keepStoreWithTheDictionary:(ProductModel *)model
 {
     [self creatStoreInfo];
@@ -199,8 +252,65 @@
     }];
     return arr;
 }
++ (NSArray *)select:(NSString *)code andProCode:(NSString *)productCode
+{
+    NSMutableArray *myArr=[[NSMutableArray alloc]init];
+    
+    ProductModel *model=[[ProductModel alloc]init];
+    
+    FMDatabaseQueue * queue = [FMDatabaseQueue databaseQueueWithPath:[self getPath]];
+    [queue inDatabase:^(FMDatabase *db) {
+        if ([db open])
+        {
+            //            NSString * selectSignIn = [NSString stringWithFormat:@"select * from signIn where btnSelect like 'YES' and userID like '%@'",USER_ID];
+            //                        NSString * selectSignIn = [NSString stringWithFormat:@"select * from storeInfo where btnSelect like 'NO' and userID like '%@'",USER_ID];
+//            NSString * selectSignIn = [NSString stringWithFormat:@"select * from myinfo where userID like '%@' and ProductId like '%@' and userID like '%@'",code,productCode,USER_ID];
+            NSString * selectSignIn = [NSString stringWithFormat:@"select * from myinfo where userID like '%@' ",code];
+            FMResultSet * set = [db executeQuery:selectSignIn];
+            while ([set next])
+            {
+                //                ProductModel *model=[[ProductModel alloc]init];
+                NSMutableArray *singleArr=[[NSMutableArray alloc]init];
+
+                
+                model.userID=[set stringForColumn:@"userID"];
+                model.ProjectId=[set stringForColumn:@"ProjectId"];
+                model.StoreId=[set stringForColumn:@"StoreId"];
+                model.Code=[set stringForColumn:@"Code"];
+                model.CreateDate=[set stringForColumn:@"CreateDate"];
+                model.CreateUserId=[set stringForColumn:@"CreateUserId"];
+                model.DiDui=[set stringForColumn:@"DiDui"];
+                model.Area=[set stringForColumn:@"Area"];
+                model.Position=[set stringForColumn:@"Position"];
+                model.POSM=[set stringForColumn:@"POSM"];
+                model.MDstate=[set stringForColumn:@"state"];
+                model.ProductId=[set stringForColumn:@"ProductId"];
+                model.Price=[set stringForColumn:@"Price"];
+                model.ProductSmell=[set stringForColumn:@"ProductSmell"];
+                
+                model.AreaRatio=[set stringForColumn:@"AreaRatio"];
+                model.Expand1=[set stringForColumn:@"ControlID"];
+                model.Expand2=[set stringForColumn:@"ControlValue"];
+                model.Expand3=[set stringForColumn:@"CreateDate"];
+                
+                
+                [singleArr addObject:[set stringForColumn:@"ControlValue"]];
+                [singleArr addObject:[set stringForColumn:@"ControlID"]];
+                [singleArr addObject:[set stringForColumn:@"ControlType"]];
+                
+                [singleArr addObject:[set stringForColumn:@"CreateDate"]];
+                
+                
+                                [myArr addObject:singleArr];
+                
+            }
+        }
+    }];
+    return myArr;
+    
+}
 //搜索单一产品信息
-+ (ProductModel *)selectOneProductDetailTable:(NSString *)code andProCode:(NSString *)productCode;
++ (ProductModel *)selectOneProductDetailTable:(NSString *)code andProCode:(NSString *)productCode
 {
     FMDatabaseQueue * queue = [FMDatabaseQueue databaseQueueWithPath:[self getPath]];
     //    NSMutableArray * arr = [NSMutableArray array];

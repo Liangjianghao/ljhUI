@@ -18,6 +18,9 @@
 @interface ViewController ()
 {
     NSMutableArray *dataArr;
+    
+    NSMutableArray *finalArr;
+    
     NSMutableArray *imgArr;
     
     int count;
@@ -51,6 +54,8 @@
     baseText=[[NSMutableDictionary alloc]init];
     baseDetailTest=[[NSMutableDictionary alloc]init];
     count=0;
+    
+    finalArr=[[NSMutableArray alloc]init];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(keyBoardDismiss:)];
     [self.view addGestureRecognizer:tap];
@@ -374,6 +379,7 @@
     ProductModel *oneModel=[KeepSignInInfo selectOneProductDetailTable:_ID andProCode:_model.ProductId];
     count3=0;
     
+    /*
     for (int j=0; j<_rowArr.count; j++) {
         NSArray *lineArr=[_rowArr[j] objectForKey:@"Contorls"];
         for (int i=0; i<lineArr.count; i++) {
@@ -411,6 +417,42 @@
         }
         }
     }
+    */
+    NSArray *myArr=[KeepSignInInfo select:_ID andProCode:_model.ProductId];
+    
+    
+    
+        for (int i=0; i<myArr.count; i++) {
+            
+            
+            if (myArr[i][0]) {
+                
+                if ([myArr[i][2]isEqualToString:@"Input"]) {
+                    UITextField *tf=[self.view viewWithTag:[myArr[i][1] intValue]];
+                    
+                    tf.text=[NSString stringWithFormat:@"%@",myArr[i][0]];
+                }
+                else if ([myArr[i][2]isEqualToString:@"Select"])
+                {
+                    UIButton *btn=[self.view viewWithTag:[myArr[i][1] intValue]];
+                    
+                    //                [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",count2]];
+                    [btn setTitle:[NSString stringWithFormat:@"%@",myArr[i][0]] forState:UIControlStateNormal];
+                    
+                }
+                
+                else if ([myArr[i][2]isEqualToString:@"CheckBox"])
+                {
+                    UIButton *btn=[self.view viewWithTag:[myArr[i][1] intValue]];
+                    
+                    [btn setTitle:[NSString stringWithFormat:@"%@",myArr[i][0]] forState:UIControlStateNormal];
+                }
+                else{
+                    
+                }
+            }
+        }
+    
     /*
     for (int i=0; i<count; i++) {
         if ([oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i]]) {
@@ -462,16 +504,32 @@
         for (int i=0; i<lineArr.count; i++) {
             count2++;
         
+            NSMutableDictionary *dic=[[NSMutableDictionary alloc]init];
+            
+            NSMutableArray *arr=[[NSMutableArray alloc]init];
+            
         if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Input"]) {
             UITextField *tf=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
             
             [_model setValue:tf.text forKey:[NSString stringWithFormat:@"expand%d",count2]];
+            
+            [dic setValue:tf.text forKey:[lineArr[i] objectForKey:@"ID"]];
+            
+            [arr addObject:tf.text];
+            [arr addObject:[lineArr[i] objectForKey:@"ID"]];
+            [arr addObject:[lineArr[i] objectForKey:@"ControlType"]];
+            
         }
         else if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Select"])
         {
             UIButton *btn=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
             
             [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",count2]];
+            [dic setValue:btn.titleLabel.text forKey:[lineArr[i] objectForKey:@"ID"]];
+            
+            [arr addObject:btn.titleLabel.text];
+            [arr addObject:[lineArr[i] objectForKey:@"ID"]];
+            [arr addObject:[lineArr[i] objectForKey:@"ControlType"]];
         }
             
         else if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"CheckBox"])
@@ -479,14 +537,26 @@
             UIButton *btn=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
             
             [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",count2]];
+            [dic setValue:btn.titleLabel.text forKey:[lineArr[i] objectForKey:@"ID"]];
+            
+            [arr addObject:btn.titleLabel.text];
+            [arr addObject:[lineArr[i] objectForKey:@"ID"]];
+            [arr addObject:[lineArr[i] objectForKey:@"ControlType"]];
+            
         }
 //        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"照片选择"])
 //        {
 //            
 //        }
         else{
-            
+            [arr addObject:@"图片"];
+            [arr addObject:[lineArr[i] objectForKey:@"ID"]];
+            [arr addObject:[lineArr[i] objectForKey:@"ControlType"]];
         }
+//            [finalArr addObject:dic];
+            
+            [finalArr addObject:arr];
+            
     }
     }
 
@@ -531,7 +601,11 @@
 //    else
 //    {
 //        NSLog(@"不存在,创建");
-        [KeepSignInInfo keepStoreWithTheDictionary:_model];
+    
+    NSLog(@"%@",finalArr);
+    
+//        [KeepSignInInfo keepStoreWithTheDictionary:_model];
+    [KeepSignInInfo keepStoreWithdata:finalArr andModel:_model];
 //    }
     
 //    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];

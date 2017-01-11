@@ -16,5 +16,6 @@
 + (void)keepPhotoWithDictionary:(NSDictionary *)photoInfo;
 + (void)keepStoreWithTheDictionary:(ProductModel *)model;
 + (ProductModel *)selectOneProductDetailTable:(NSString *)code andProCode:(NSString *)productCode;
-
++ (void)keepStoreWithdata:(NSArray *)arr andModel:(ProductModel *)model;
++ (NSArray *)select:(NSString *)code andProCode:(NSString *)productCode;
 @end

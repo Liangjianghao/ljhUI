@@ -10,6 +10,7 @@
                         {
                         "ID": 6,
                         "Name": "测试表单1",
+                        "ReportingFrequency": "每天",
                         "Rows": [
                                  {
                                  "ID": 8,
@@ -53,9 +54,9 @@
                                  "Contorls": [
                                               {
                                               "ID": 18,
-                                              "Name": "薯片",
+                                              "Name": "销量",
                                               "ControlType": "Input",
-                                              "DefaultValue": null,
+                                              "DefaultValue": "",
                                               "MinValue": null,
                                               "MaxValue": null,
                                               "DataType": "文本",
@@ -66,14 +67,8 @@
                                               "Name": "断缺货",
                                               "ControlType": "Select",
                                               "Options": [
-                                                          {
-                                                          "Value": "是",
-                                                          "Text": "是"
-                                                          },
-                                                          {
-                                                          "Value": "否",
-                                                          "Text": "否"
-                                                          }
+                                                          "是",
+                                                          "否"
                                                           ],
                                               "DefaultValue": "",
                                               "MinValue": null,
@@ -88,6 +83,7 @@
                         {
                         "ID": 7,
                         "Name": "测试表单2",
+                        "ReportingFrequency": "每天",
                         "Rows": [
                                  {
                                  "ID": 10,
