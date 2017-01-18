@@ -15,6 +15,7 @@
 #import "KeepSignInInfo.h"
 #import "ljhCheckbox.h"
 #import "ljhSingleChooseBtn.h"
+#import "NetWorking.h"
 @interface ViewController ()
 {
     NSMutableArray *dataArr;
@@ -94,8 +95,8 @@
 //    }
     NSLog(@"baseText\n%@",baseText);
     //    NSLog(@"detail%@\n",baseDetailTest);
-    NSDictionary *dictionary=[DBManager selectInfo:nil];
-    NSLog(@"dictionary\%@",dictionary);
+//    NSDictionary *dictionary=[DBManager selectInfo:nil];
+//    NSLog(@"dictionary\%@",dictionary);
 }
 -(void)uiConfig
 {
@@ -150,7 +151,8 @@
 //                
 //                NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:[self dicToArray:Str]];
                 
-                NSArray *myarr=@[@"是",@"否"];
+                NSArray *myarr=[lineArr[i] objectForKey:@"Options"];
+                
                 [btn mybuttonwithArr:myarr andTitle:@"单选" andMessage:@"测试"];
                 [btn setFinishBlock:^(NSString *result) {
                     
@@ -175,6 +177,7 @@
 //                NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:[self dicToArray:Str]];
                 
                 NSArray *myarr=@[@"位置一",@"位置二"];
+//                NSArray *myarr=[lineArr[i] objectForKey:@"Options"];
 
                 
                 [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -191,22 +194,7 @@
                 
                 
             }
-             /*
-            else if([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"日期选择框"]) {
-                UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-                btn.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
-                [btn setTitle:@"日期选择" forState:UIControlStateNormal];
-                [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(dateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                
-                //                btn.tag=101+i;
-                btn.tag=[[rowArr[i] objectForKey:@"ID"] intValue];
-                [scrollV addSubview:btn];
-                viewheight+=80;
-                
-                
-            }
-             */
+
             else if([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Camara"]) {
                 
                 
@@ -239,131 +227,11 @@
 
         }
     }
-    
-    /*
-    for (int i=0; i<count; i++) {
-        
-        UILabel *label=[[UILabel alloc]init];
-        label.frame=CGRectMake(10, viewheight, 100, CONTROLHEIGHT);
-        label.text=[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ControlLabel"]];
-        label.textAlignment=NSTextAlignmentCenter;
-        [scrollV addSubview:label];
-        
-        //            viewheight+=80;
-        
-        if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"文本框"]) {
-            
-            UITextField *textField=[[UITextField alloc]init];
-            textField.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
-            textField.placeholder=[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ControlLabel"]];
-            textField.delegate=self;
-            //                textField.tag=101+i;
-            textField.tag=[[dataArr[i] objectForKey:@"ID"] intValue];
-            [scrollV addSubview:textField];
-            viewheight+=80;
-            
-        }
-        else if([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"单选框"]) {
-            
-            ljhSingleChooseBtn *btn=[[ljhSingleChooseBtn alloc]init];
-            NSString *Str=[baseDetailTest objectForKey:[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ID"]]];
-            NSLog(@"%@",[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ID"]]);
-            
-            NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:[self dicToArray:Str]];
-            [btn mybuttonwithArr:arr andTitle:@"单选" andMessage:@"测试"];
-            [btn setFinishBlock:^(NSString *result) {
-                
-            }];
-            btn.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
-            [btn setTitle:@"单选" forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
- 
-            btn.tag=[[dataArr[i] objectForKey:@"ID"] intValue];
-            [scrollV addSubview:btn];
-            viewheight+=80;
-            
-            
-        }
-        else if([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"多选框"]) {
-            
-            ljhCheckbox *btn=[[ljhCheckbox alloc]init];
-            NSString *Str=[baseDetailTest objectForKey:[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ID"]]];
-            NSLog(@"%@",[NSString stringWithFormat:@"%@",[dataArr[i] objectForKey:@"ID"]]);
-            
-            NSMutableArray *arr=[[NSMutableArray alloc]initWithArray:[self dicToArray:Str]];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
-            [btn mybuttonwithArr:arr andTitle:@"多选" andMessage:@"测试"];
-            [btn setFinishBlock:^(NSString *result) {
-                
-            }];
-            btn.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
-            [btn setTitle:@"多选" forState:UIControlStateNormal];
-            btn.tag=[[dataArr[i] objectForKey:@"ID"] intValue];
-            [scrollV addSubview:btn];
-            viewheight+=80;
-
-            
-        }
-        else if([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"日期选择框"]) {
-            UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-            btn.frame=CGRectMake(160, viewheight, 160, CONTROLHEIGHT);
-            [btn setTitle:@"日期选择" forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            [btn addTarget:self action:@selector(dateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            
-            //                btn.tag=101+i;
-            btn.tag=[[dataArr[i] objectForKey:@"ID"] intValue];
-            [scrollV addSubview:btn];
-            viewheight+=80;
-            
-            
-        }
-        else if([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"照片选择"]) {
-            
-            
-            UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-            btn.frame=CGRectMake(110,viewheight, CONTROLHEIGHT, CONTROLHEIGHT);
-            //                [btn setTitle:@"照片选择" forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            [btn addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
-//            [btn setBackgroundImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-//            [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            
-            btn.backgroundColor=[UIColor blackColor];
-
-            btn.tag=101+i;
-            takePhotoTag=btn.tag;
-            [scrollV addSubview:btn];
-            
-            [self baseConfigWithTag:btn.tag];
-            
-            viewheight+=160;
-            
-        }
-        else
-        {
-            NSLog(@"other");
-        }
-    }
-*/
-    imagePicker = [[UIImagePickerController alloc] init];//初始化
+     imagePicker = [[UIImagePickerController alloc] init];//初始化
     imagePicker.delegate = self;
     imagePicker.allowsEditing = YES;//设置可编辑
     
-  
-//    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame=CGRectMake(0, 0,40, 40);
-//    //    [btn setTitle:@"title" forState:UIControlStateNormal];
-//    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-//    //    [btn setBackgroundImage:[UIImage imageNamed:@"保存"] forState:UIControlStateNormal];
-//    [btn setTitle:@"保存" forState:UIControlStateNormal];
-//    //    [btn setImage:[UIImage imageNamed:@"icon-40"] forState:UIControlStateNormal];
-//    
-//    [btn addTarget:self action:@selector(saveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    //    [self.view addSubview:btn];
-//    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:btn];
+
     
     UIButton *savebtn=[UIButton buttonWithType:UIButtonTypeCustom];
     savebtn.frame=CGRectMake(10, viewheight, WIDTH-20, 40);
@@ -376,48 +244,9 @@
     [scrollV addSubview:savebtn];
     
     scrollV.contentSize=CGSizeMake(WIDTH, viewheight+50);
-    ProductModel *oneModel=[KeepSignInInfo selectOneProductDetailTable:_ID andProCode:_model.ProductId];
+//    ProductModel *oneModel=[KeepSignInInfo selectOneProductDetailTable:_ID andProCode:_model.ProductId];
     count3=0;
     
-    /*
-    for (int j=0; j<_rowArr.count; j++) {
-        NSArray *lineArr=[_rowArr[j] objectForKey:@"Contorls"];
-        for (int i=0; i<lineArr.count; i++) {
-            count3++;
-            
-            if ([oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i+1]]) {
-            
-            if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Input"]) {
-                UITextField *tf=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
-                
-                tf.text=[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",count3]];
-            }
-            else if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Select"])
-            {
-                UIButton *btn=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
-                
-//                [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",count2]];
-                [btn setTitle:[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",count3]] forState:UIControlStateNormal];
-
-            }
-                
-            else if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"CheckBox"])
-                    {
-                        UIButton *btn=[self.view viewWithTag:[[lineArr[i] objectForKey:@"ID"] intValue]];
-            
-                        [btn setTitle:[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",count3]] forState:UIControlStateNormal];
-                    }
-            //        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"照片选择"])
-            //        {
-            //            
-            //        }
-            else{
-                
-            }
-        }
-        }
-    }
-    */
     NSArray *myArr=[KeepSignInInfo select:_ID andProCode:_model.ProductId];
     
     
@@ -453,43 +282,7 @@
             }
         }
     
-    /*
-    for (int i=0; i<count; i++) {
-        if ([oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i]]) {
-            
-      
-        if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"文本框"]) {
-    
-            UITextField *tf=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-            tf.text=[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i]];
-//                        [_model setValue:tf.text forKey:[NSString stringWithFormat:@"expand%d",i]];
-        }
-        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"单选框"])
-        {
-            UIButton *btn=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-            [btn setTitle:[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i]] forState:UIControlStateNormal];
-            
-//            [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",i]];
-        }
-        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"多选框"])
-        {
-            UIButton *btn=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-            [btn setTitle:[oneModel valueForKey:[NSString stringWithFormat:@"Expand%d",i]] forState:UIControlStateNormal];
-//            [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",i]];
-        }
-        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"照片选择"])
-        {
-            
-        }
-        else{
-            
-        }
-        }
-        
-    }
-     */
-    
-
+   
 }
 -(void)saveData:(UIButton*)btns
 {
@@ -560,36 +353,6 @@
     }
     }
 
-    /*
-    for (int i=0; i<count; i++) {
-        
-        if ([[lineArr[i] objectForKey:@"ControlType"]isEqualToString:@"Input"]) {
-            UITextField *tf=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-                             
-            [_model setValue:tf.text forKey:[NSString stringWithFormat:@"expand%d",i+1]];
-        }
-        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"单选框"])
-        {
-            UIButton *btn=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-            
-            [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",i+1]];
-        }
-        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"多选框"])
-        {
-            UIButton *btn=[self.view viewWithTag:[[dataArr[i] objectForKey:@"ID"] intValue]];
-            
-            [_model setValue:btn.titleLabel.text forKey:[NSString stringWithFormat:@"expand%d",i+1]];
-        }
-        else if ([[[dataArr[i] objectForKey:@"ControlType"] objectForKey:@"Name"]isEqualToString:@"照片选择"])
-        {
-        
-        }
-        else{
-        
-        }
-        
-    }
-     */
     
 //    isSaved=YES;
 //    
@@ -602,13 +365,86 @@
 //    {
 //        NSLog(@"不存在,创建");
     
-    NSLog(@"%@",finalArr);
+//    NSLog(@"%@",finalArr);
     
 //        [KeepSignInInfo keepStoreWithTheDictionary:_model];
-    [KeepSignInInfo keepStoreWithdata:finalArr andModel:_model];
+//    [KeepSignInInfo keepStoreWithdata:finalArr andModel:_model];
 //    }
     
-//    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    NSArray *controlArr=[KeepSignInInfo selectControlWithInfo:nil];
+    
+//    NSMutableDictionary *uploadDic=[[NSMutableDictionary alloc]init];
+//    [uploadDic setValue:@"3" forKey:@"userid"];
+    
+//    NSError *error;
+//    
+////    [self DataTOjsonString:controlArr];
+//    
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:controlArr options:NSJSONWritingPrettyPrinted error:&error];//此处data参数是我上面提到的key为"data"的数组
+//    
+//    
+//    
+//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    
+//    [uploadDic setValue:controlArr forKey:@"Items"];
+    
+    NSDictionary *uploadDic=[NSDictionary dictionaryWithObjectsAndKeys:@"3",@"userid",controlArr,@"Items", nil];
+    
+    NSString *uploadUrlAddress=[NSString stringWithFormat:@"http://192.168.60.50/hecha/service/uploaddata.ashx"];
+    
+//    NSLog(@"json--\n%@",[self DataTOjsonString:uploadDic]);
+    
+    
+    NSLog(@"uploadDic\n%@",uploadDic);
+    [NetWorking requestWithAddress:uploadUrlAddress andParameters:uploadDic withSuccessBlock:^(NSDictionary *result, NSError *error) {
+        NSLog(@"上传返回%@",result);
+    } andFailedBlock:^(NSString *result, NSError *error) {
+        NSLog(@"上传返回%@",result);
+    }];
+    
+    
+//    NSURL *url = [NSURL URLWithString:uploadUrlAddress];
+//    //第二步，创建请求
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+//    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
+//    
+////    NSString *str =[self DataTOjsonString:uploadDic];
+//    
+////    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+//    NSData *data =    [NSJSONSerialization dataWithJSONObject:uploadDic options:NSJSONWritingPrettyPrinted error:nil];
+//
+//    [request setHTTPBody:data];
+//    
+//    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];     //从网上请求得到的数据
+//    NSString *str1 = [[NSString alloc]initWithData:received encoding:NSUTF8StringEncoding]; //转码
+//    
+//    
+//    NSData * data2 = [str1 dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    
+//    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONReadingMutableLeaves error:nil];
+//    
+//    NSLog(@"%@, %@",str1,[jsonDict objectForKey:@"errorcode"]); //打印
+    
+
+}
+-(NSString*)DataTOjsonString:(id)object
+{
+    NSString *jsonString = nil;
+    NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error];
+    //
+//    NSData *jsonData=[NSJSONSerialization JSONObjectWithData:object options:NSJSONReadingMutableContainers error:&error];
+    
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
 }
 //字典转数组 后台json数据为str 若为数据不需要
 -(NSMutableArray *)dicToArray:(NSString *)str

@@ -9,35 +9,42 @@
 #import "NetWorking.h"
 #import "AFNetworking.h"
 @implementation NetWorking
+
++(NSString*)DataTOjsonString:(id)object
+{
+    NSString *jsonString = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:&error];
+    
+//    NSData *jsonData=[NSJSONSerialization JSONObjectWithData:object options:NSJSONReadingMutableContainers error:&error];
+    
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
 +(void)requestWithAddress:(NSString *)addrress andParameters:(NSDictionary *)parameter withSuccessBlock:(void (^)(NSDictionary *result, NSError *error))successBlock andFailedBlock:(void (^)(NSString *result, NSError *error))failedBlock
 {
     NSString *URLString = addrress;
-  
-    NSDictionary *dic=parameter;
-
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
- 
-    
     manager.requestSerializer=[AFJSONRequestSerializer serializer];
-    //    requestSerializer
+
     manager.responseSerializer = [[AFCompoundResponseSerializer alloc] init];
-    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
-//    manager.responseSerializer.acceptableContentTypes = [NSSet
-//                                                         setWithObject:@"application/json"];
+
     
-    [manager POST:URLString parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
-        //        AFURLResponseSerialization
+    [manager POST:URLString parameters:parameter progress:^(NSProgress * _Nonnull uploadProgress) {
+        
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-//        NSLog(@"responseObject %@",responseObject);
-        
-//        NSString *result = [[NSString alloc] initWithData:responseObject  encoding:NSUTF8StringEncoding];
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
 
-//        NSLog(@"jsonDict %@",jsonDict);
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
         
         successBlock(jsonDict,nil);
         
@@ -45,6 +52,6 @@
         NSLog(@"失败:%@",error);  //这里打印错误信息
         failedBlock(@"failed",nil);
     }];
-
+    
 }
 @end

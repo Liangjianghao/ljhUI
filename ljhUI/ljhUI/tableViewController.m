@@ -10,10 +10,12 @@
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #import "tableViewController.h"
 #import "ViewController.h"
+#import "NetWorking.h"
 
 @interface tableViewController ()
 {
     NSMutableArray *dataArr;
+    UITableView *myTableView;
 }
 @end
 
@@ -25,7 +27,7 @@
     
     [self loadData];
     
-    UITableView *myTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT) style:UITableViewStylePlain];
+    myTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT) style:UITableViewStylePlain];
     myTableView.delegate=self;
     myTableView.dataSource=self;
     [self.view addSubview:myTableView];
@@ -37,6 +39,7 @@
 
 -(void)loadData
 {
+    /*
     NSString *path;
     path = [[NSBundle mainBundle] pathForResource:@"my" ofType:@"json"];
     NSData *fileData = [[NSData alloc]init];
@@ -51,8 +54,34 @@
     NSArray *tableArr=[basedataArr[0] objectForKey:@"Tables"];
     dataArr=tableArr;
     NSArray*  rowArr=[tableArr[0] objectForKey:@"Rows"];
+*/
+    //    NSDictionary *newdic=[NSDictionary dictionaryWithObjectsAndKeys:@"ios",@"username",@"e10adc3949ba59abbe56e057f20f883e",@"password",nil];
+    //    NSString *newurlAddress=[NSString stringWithFormat:@"http://192.168.60.50/hecha/service/app.ashx?action=login"];
+    
+//    NSDictionary *newdic=[NSDictionary dictionaryWithObjectsAndKeys:@"3",@"userid",nil];
+//    
+//    NSString *newurlAddress=[NSString stringWithFormat:@"http://192.168.60.50/hecha/service/app.ashx?action=loadconfig"];
+//    
+//    //    NSDictionary *newdic=[NSDictionary dictionaryWithObjectsAndKeys:@"3",@"userid",nil];
+//    //
+//    //    NSString *newurlAddress=[NSString stringWithFormat:@"http://192.168.60.50/hecha/service/app.ashx?action=loadstore"];
+//    
+//    [NetWorking requestWithAddress:newurlAddress andParameters:newdic withSuccessBlock:^(NSDictionary *result, NSError *error) {
+//        
+//        NSArray * basedataArr=[result objectForKey:@"Data"];
+//        NSLog(@"%lu",(unsigned long)basedataArr.count);
+//        
+//        NSLog(@"%@",[basedataArr[0] objectForKey:@"Name"]);
+//        NSArray *tableArr=[basedataArr[0] objectForKey:@"Tables"];
+//        dataArr=tableArr;
+//        [myTableView reloadData];
+//        
+//    } andFailedBlock:^(NSString *result, NSError *error) {
+//        
+//    }];
 
-
+    dataArr=_baseDataArr;
+    [myTableView reloadData];
 }
 
 #pragma mark--tableview delegate

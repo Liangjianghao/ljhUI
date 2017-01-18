@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface tableViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
-
+@property(nonatomic,retain)NSArray *baseDataArr;
 @end

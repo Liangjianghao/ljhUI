@@ -12,6 +12,41 @@
 
 #define USER_ID [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"]
 @implementation KeepSignInInfo
+//查询控件信息
++ (NSMutableArray *)selectControlWithInfo:(NSDictionary *)infoDic
+{
+    NSMutableArray * arr = [NSMutableArray array];
+    FMDatabaseQueue * queue = [FMDatabaseQueue databaseQueueWithPath:[self getPath]];
+    [queue inDatabase:^(FMDatabase *db) {
+        if ([db open])
+        {
+            //            NSString * selectStr = [NSString stringWithFormat:@"select * from photoInfo where selectType = '%@' and userID like '%@'",selectType,USER_ID];
+            NSString * selectStr = [NSString stringWithFormat:@"select * from myinfo where storeCode = '%@' and userID like '%@'",[infoDic objectForKey:@""],@"3"];
+            FMResultSet * set = [db executeQuery:selectStr];
+            while ([set next])
+            {
+//                NSString * ControlID = [set stringForColumn:@"ControlID"];
+      
+                NSMutableDictionary *controlDic=[[NSMutableDictionary alloc]init];
+                [controlDic setValue:[set stringForColumn:@"ControlID"] forKey:@"ControlID"];
+//                [controlDic setValue:[set stringForColumn:@"StoreID"] forKey:@"StoreID"];
+                [controlDic setValue:@"2257" forKey:@"StoreID"];
+                [controlDic setValue:[set stringForColumn:@"ControlValue"] forKey:@"ControlValue"];
+//                [controlDic setValue:[set stringForColumn:@"CreateDate"] forKey:@"CreateDate"];
+                [controlDic setValue:[NSString stringWithFormat:@"%@",[NSDate date]] forKey:@"CreateDate"];
+//                NSError *error;
+//                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:controlDic options:NSJSONWritingPrettyPrinted error:&error];//此处data参数是我上面提到的key为"data"的数组
+//                NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+//                NSDictionary *newDic=[NSDictionary dictionaryWithObjectsAndKeys:[set stringForColumn:@"ControlID"],@"ControlID",@"2257",@"StoreID",[set stringForColumn:@"ControlValue"],@"ControlValue",[NSString stringWithFormat:@"%@",[NSDate date]],@"CreateDate", nil];
+                
+                [arr addObject:controlDic];
+            }
+        }
+        [db close];
+    }];
+    return arr;
+}
 // 创建相关门店信息
 + (void)creatStoreInfo
 {
@@ -262,9 +297,6 @@
     [queue inDatabase:^(FMDatabase *db) {
         if ([db open])
         {
-            //            NSString * selectSignIn = [NSString stringWithFormat:@"select * from signIn where btnSelect like 'YES' and userID like '%@'",USER_ID];
-            //                        NSString * selectSignIn = [NSString stringWithFormat:@"select * from storeInfo where btnSelect like 'NO' and userID like '%@'",USER_ID];
-//            NSString * selectSignIn = [NSString stringWithFormat:@"select * from myinfo where userID like '%@' and ProductId like '%@' and userID like '%@'",code,productCode,USER_ID];
             NSString * selectSignIn = [NSString stringWithFormat:@"select * from myinfo where userID like '%@' ",code];
             FMResultSet * set = [db executeQuery:selectSignIn];
             while ([set next])
@@ -273,25 +305,25 @@
                 NSMutableArray *singleArr=[[NSMutableArray alloc]init];
 
                 
-                model.userID=[set stringForColumn:@"userID"];
-                model.ProjectId=[set stringForColumn:@"ProjectId"];
-                model.StoreId=[set stringForColumn:@"StoreId"];
-                model.Code=[set stringForColumn:@"Code"];
-                model.CreateDate=[set stringForColumn:@"CreateDate"];
-                model.CreateUserId=[set stringForColumn:@"CreateUserId"];
-                model.DiDui=[set stringForColumn:@"DiDui"];
-                model.Area=[set stringForColumn:@"Area"];
-                model.Position=[set stringForColumn:@"Position"];
-                model.POSM=[set stringForColumn:@"POSM"];
-                model.MDstate=[set stringForColumn:@"state"];
-                model.ProductId=[set stringForColumn:@"ProductId"];
-                model.Price=[set stringForColumn:@"Price"];
-                model.ProductSmell=[set stringForColumn:@"ProductSmell"];
-                
-                model.AreaRatio=[set stringForColumn:@"AreaRatio"];
-                model.Expand1=[set stringForColumn:@"ControlID"];
-                model.Expand2=[set stringForColumn:@"ControlValue"];
-                model.Expand3=[set stringForColumn:@"CreateDate"];
+//                model.userID=[set stringForColumn:@"userID"];
+//                model.ProjectId=[set stringForColumn:@"ProjectId"];
+//                model.StoreId=[set stringForColumn:@"StoreId"];
+//                model.Code=[set stringForColumn:@"Code"];
+//                model.CreateDate=[set stringForColumn:@"CreateDate"];
+//                model.CreateUserId=[set stringForColumn:@"CreateUserId"];
+//                model.DiDui=[set stringForColumn:@"DiDui"];
+//                model.Area=[set stringForColumn:@"Area"];
+//                model.Position=[set stringForColumn:@"Position"];
+//                model.POSM=[set stringForColumn:@"POSM"];
+//                model.MDstate=[set stringForColumn:@"state"];
+//                model.ProductId=[set stringForColumn:@"ProductId"];
+//                model.Price=[set stringForColumn:@"Price"];
+//                model.ProductSmell=[set stringForColumn:@"ProductSmell"];
+//                
+//                model.AreaRatio=[set stringForColumn:@"AreaRatio"];
+//                model.Expand1=[set stringForColumn:@"ControlID"];
+//                model.Expand2=[set stringForColumn:@"ControlValue"];
+//                model.Expand3=[set stringForColumn:@"CreateDate"];
                 
                 
                 [singleArr addObject:[set stringForColumn:@"ControlValue"]];

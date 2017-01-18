@@ -18,4 +18,6 @@
 + (ProductModel *)selectOneProductDetailTable:(NSString *)code andProCode:(NSString *)productCode;
 + (void)keepStoreWithdata:(NSArray *)arr andModel:(ProductModel *)model;
 + (NSArray *)select:(NSString *)code andProCode:(NSString *)productCode;
++ (NSMutableArray *)selectControlWithInfo:(NSDictionary *)infoDic;
+
 @end

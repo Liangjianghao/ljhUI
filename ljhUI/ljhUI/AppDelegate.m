@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "AFNetworking.h"
 @interface AppDelegate ()
 
 @end
@@ -17,9 +17,48 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+        NSString * writePath = [NSString stringWithFormat:@"%@/Library/new.json",NSHomeDirectory()];
+    
+    
+    if (writePath) {
+        NSLog(@"存在");
+    }
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:@"http://192.168.60.50/hecha/service/app.ashx?action=loadconfig"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        
+    
+
+        return [NSURL fileURLWithPath:writePath];
+        
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"File downloaded to: %@", filePath);
+    }];
+    [downloadTask resume];
+
     return YES;
 }
+-(BOOL)judgeFileExist:(NSString * )fileName
 
+{
+    
+    //获取文件路径
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
+    
+    if(path==NULL)
+        
+        return NO;
+    
+    return YES;
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

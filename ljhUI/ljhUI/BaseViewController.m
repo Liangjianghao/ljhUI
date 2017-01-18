@@ -13,6 +13,7 @@
 #import "BaseViewController.h"
 #import "ViewController.h"
 #import "tableViewController.h"
+#import "programList.h"
 
 @interface BaseViewController ()
 
@@ -35,8 +36,8 @@
 }
 -(void)btnClick:(UIButton *)btn
 {
-    tableViewController *myView=[[tableViewController alloc]init];
-    [self.navigationController pushViewController:myView animated:YES];
+    programList *proListVC=[[programList alloc]init];
+    [self.navigationController pushViewController:proListVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
